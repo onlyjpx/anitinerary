@@ -1,0 +1,28 @@
+.Navbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 20px;
+    background: transparent;
+}
+
+.nav-link {
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.nav-link:hover {
+    color: #0051ff;
+}
+
+.nav-buttons {
+    margin: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: auto;
+}
+
+.user-configs {
+    display: flex;
+    align-items: center;
+}
