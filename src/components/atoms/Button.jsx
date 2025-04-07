@@ -1,4 +1,3 @@
-import React from "react";
 import { IconContext } from "react-icons";
 import './Button.css';
 const Button = ({ text, onClick, className, icon: Icon, tooltip }) => {

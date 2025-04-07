@@ -128,7 +128,7 @@ const Home = () => {
                             />
                             <button
                                 type="submit"
-                                className="btn btn-primary btn-lg b-15"
+                                className="nav-btn border b-white"
                                 disabled={!email || !password || loading}
                             >
                                 {loading ? "Entrando..." : "Entrar"}

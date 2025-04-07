@@ -1,5 +1,5 @@
 body {
-    font-family: "Aloevera Display", sans-serif;
+    font-family: "Aloevera Display", sans-serif !important;
 }
 
 .containerBox-1 {
@@ -14,4 +14,40 @@ body {
     height: 600px;
     margin-left: 20px;
     margin-right: 20px;
+}
+
+.container {
+    color: white;
+}
+
+.cardAnime {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.cardAnime:hover {
+    transform: scale(1.05);
+}
+
+.left,
+.right {
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+
+    .left,
+    .right {
+        width: 48%;
+        display: inline-block;
+        vertical-align: top;
+    }
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-white {
+    color: white;
 }

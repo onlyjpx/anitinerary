@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Register from "./pages/register";
 import Navbar from "./components/organisms/Navbar";
 import { UserProvider } from "./UserContext";
+import "./styles.css"
 
 function App() {
   return (
