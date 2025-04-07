@@ -45,14 +45,14 @@ const Navbar = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
                                 transition={{ duration: 0.3 }}
-                                className="position-absolute border bg-black border-primary rounded p-2 mt-2 text-white"
-                                style={{ right: 0, minWidth: "150px", zIndex: 1000 }}
+                                className="position-absolute rounded p-2 mt-2 text-white"
+                                style={{ border: "1px solid #58a6ff", right: 0, minWidth: "150px", zIndex: 1000, background: "#0d1117" }}
                             >
                                 {user ? (
                                     <div className="d-flex flex-column">
                                         <Link to="/profile" className="nav-link d-block" onClick={toggle}>Perfil</Link>
                                         <Link to="/events" className="nav-link d-block" onClick={toggle}>Eventos</Link>
-                                        <Button text="Sair" className="nav-btn" onClick={handleLogout} />
+                                        <Button text="Sair" className="nav-btn text-warning" onClick={handleLogout} />
                                     </div>
                                 ) : (
                                     <>

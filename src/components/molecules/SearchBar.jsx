@@ -16,7 +16,7 @@ const SearchBar = ({ onSearch }) => {
                 placeholder="Buscar evento..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="me-2 rounded-3"
+                className="me-2 ps-3 rounded-5 bg-transparent"
             />
             <Button text="Buscar" onClick={handleSearch} className="nav-btn" />
         </div>

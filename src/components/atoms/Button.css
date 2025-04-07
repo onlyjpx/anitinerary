@@ -4,7 +4,7 @@
     justify-content: center;
     background: transparent;
     border: transparent;
-    color: rgb(255, 255, 255);
+    color: #c9d1d9;
     padding: 10px;
     cursor: pointer;
     border-radius: 8px;
@@ -25,13 +25,13 @@
 }
 
 .register-btn:hover {
-    background: #222222;
-    color: #0022ff;
+    background: #161b22;
+    color: #58a6ff;
     border-radius: 14px;
 }
 
 .nav-btn:hover {
-    background: #222222;
-    color: #0022ff;
+    background: #161b22;
+    color: #58a6ff;
     border-radius: 14px;
 }
