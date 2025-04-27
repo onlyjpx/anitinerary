@@ -1,20 +1,24 @@
-// src/components/atoms/AnimatedButton.jsx
 import { motion } from "framer-motion";
 import { useState } from "react";
 import "../atoms/Button.css"
 
 const AnimatedButton = ({
-    initialText = "Marcar no calendário",
-    markedText = "Marcado ✅",
+    initialText = "",
+    markedText = "",
     onMark = () => { },
     className = "",
+    onClick,
     ...props
 }) => {
     const [marked, setMarked] = useState(false);
 
-    const handleClick = () => {
+    const handleClick = (e) => {
         setMarked(true);
         onMark();
+
+        if (onClick) {
+            onClick(e);
+        }
     };
 
     return (

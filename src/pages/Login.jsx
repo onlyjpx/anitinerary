@@ -6,6 +6,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import Input from "../components/atoms/Input";
 import Button from "../components/atoms/Button";
 import { UserContext } from "../UserContext";
+import { GoogleLogin } from "@react-oauth/google";
 
 const Home = () => {
     const navigate = useNavigate();
@@ -34,22 +35,7 @@ const Home = () => {
             const data = response.data;
 
             if (data.status === "success") {
-                login(data.user, data.token);
-                localStorage.setItem("user", JSON.stringify(data.user));
-
-                setSuccess(true); // Ativa bordas verdes
-
-                setTimeout(() => {
-                    setMinimizing(true); // Começa a reduzir a altura
-                }, 500); // Espera a borda mudar antes de encolher
-
-                setTimeout(() => {
-                    setFinalSuccess(true); // Mostra o ícone
-                }, 1200); // Espera a altura diminuir antes de exibir o ícone
-
-                setTimeout(() => {
-                    navigate("/"); // Redireciona
-                }, 3000);
+                handleLoginSuccess(data.user, data.token);
             } else {
                 setError(data.message);
             }
@@ -57,6 +43,37 @@ const Home = () => {
             setError("Erro ao conectar com o servidor.");
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleLoginSuccess = (user, token) => {
+        login(user, token);
+        localStorage.setItem("user", JSON.stringify(user));
+
+        setSuccess(true);
+
+        setTimeout(() => setMinimizing(true), 500);
+        setTimeout(() => setFinalSuccess(true), 1200);
+        setTimeout(() => navigate("/"), 3000);
+    };
+
+    const handleGoogleSuccess = async (credentialResponse) => {
+        try {
+            const response = await axios.post("http://localhost/backend/login.php", {
+                token: credentialResponse.credential
+            }, {
+                headers: { "Content-Type": "application/json" }
+            });
+
+            const data = response.data;
+
+            if (data.status === "success") {
+                handleLoginSuccess(data.user, data.token);
+            } else {
+                setError(data.message);
+            }
+        } catch (err) {
+            setError("Erro no login com Google.");
         }
     };
 
@@ -72,7 +89,7 @@ const Home = () => {
             }}
             animate={{
                 borderColor: success ? "#28a745" : "white",
-                height: minimizing ? 100 : "auto", // Diminui suavemente a altura
+                height: minimizing ? 100 : "auto",
                 transition: { duration: 0.5, ease: "easeInOut" }
             }}
         >
@@ -128,12 +145,24 @@ const Home = () => {
                             />
                             <button
                                 type="submit"
-                                className="nav-btn border b-white"
+                                className="btn btn-primary btn-lg"
                                 disabled={!email || !password || loading}
                             >
                                 {loading ? "Entrando..." : "Entrar"}
                             </button>
                         </form>
+
+                        <div className="mt-3">
+                            <p>Ou entre com:</p>
+                            <GoogleLogin
+                                onSuccess={handleGoogleSuccess}
+                                onError={() => setError("Falha no login com Google.")}
+                                theme="outline"
+                                size="large"
+                                experimental_isIframeSessionStorageEnabled={false}
+                                scope="openid profile email"
+                            />
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>

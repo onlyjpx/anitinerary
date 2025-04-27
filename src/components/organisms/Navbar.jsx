@@ -51,7 +51,7 @@ const Navbar = () => {
                                 {user ? (
                                     <div className="d-flex flex-column">
                                         <Link to="/profile" className="nav-link d-block" onClick={toggle}>Perfil</Link>
-                                        <Link to="/events" className="nav-link d-block" onClick={toggle}>Eventos</Link>
+                                        <Link to="/realeases" className="nav-link d-block" onClick={toggle}>Lançamentos</Link>
                                         <Button text="Sair" className="nav-btn text-warning" onClick={handleLogout} />
                                     </div>
                                 ) : (

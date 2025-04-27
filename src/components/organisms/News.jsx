@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "../../styles.css";
 import AnimatedButton from "../atoms/AnimatedButton";
+import { useMarkedItems } from "../../hooks/useCalendar";
 
 const News = () => {
     const [news, setNews] = useState([]);
@@ -9,17 +10,27 @@ const News = () => {
     const containerRef = useRef(null);
     const innerRef = useRef(null);
     const [width, setWidth] = useState(0);
+    const { markItem } = useMarkedItems();
 
     useEffect(() => {
+        const cached = localStorage.getItem("news");
+        if (cached) {
+            setNews(JSON.parse(cached));
+            return;
+        }
         fetch("https://api.jikan.moe/v4/seasons/upcoming?limit=25")
             .then((res) => res.json())
             .then((data) => {
                 const sorted = data.data
                     .filter(anime => anime.aired?.from)
                     .sort((a, b) => new Date(a.aired.from) - new Date(b.aired.from))
-                    .slice(0, 5);
+                    .slice(0, 10);
 
                 setNews(sorted);
+                localStorage.setItem("news", JSON.stringify(sorted));
+            })
+            .catch((err) => {
+                console.error("Erro ao buscar notícias:", err);
             });
     }, []);
 
@@ -41,7 +52,6 @@ const News = () => {
 
     return (
         <div className="bg-transparent p-3 rounded border border-primary">
-            <h4 className="text-white mb-3">Próximos Lançamentos</h4>
 
             <div ref={containerRef} className="overflow-hidden" style={{ position: "relative" }}>
                 <motion.div
@@ -116,6 +126,10 @@ const News = () => {
                                 initialText="Marcar no calendário"
                                 markedText="Marcado ✅"
                                 className="nav-btn mt-3"
+                                onClick={() => {
+                                    markItem(selectedAnime.mal_id);
+                                }
+                                }
                             />
                         </motion.div>
                     </motion.div>
